@@ -23,9 +23,12 @@ def browser():
 
 @pytest.mark.parametrize('id', ["236895","236896","236897","236898","236899","236903","236904","236905"])
 def test_login_link(browser,id):
+
     link = f"https://stepik.org/lesson/{id}/step/1"
+
     browser.get(link)
     browser.implicitly_wait(10)
+
     btn = browser.find_element(By.XPATH, "//*[@class='ember-view navbar__auth navbar__auth_login st-link st-link_style_button']")
     btn.click()
     
@@ -36,7 +39,7 @@ def test_login_link(browser,id):
     inpu2.send_keys("pass")
 
 
-    element1 = WebDriverWait(browser,10).until(EC.element_to_be_clickable((By.XPATH,"//*[@id='login_form']/button")))
+    element = WebDriverWait(browser,10).until(EC.element_to_be_clickable((By.XPATH,"//*[@id='login_form']/button")))
     browser.find_element(By.XPATH,"//*[@id='login_form']/button").click()
 
     time.sleep(10)
@@ -46,7 +49,6 @@ def test_login_link(browser,id):
     input3 = browser.find_element(By.XPATH,"//textarea")
     input3.send_keys(answer)
 
-    #element = WebDriverWait(browser,10).until(EC.element_to_be_clickable((By.XPATH,"//*[@class='submit-submission']")))
     btn2 = browser.find_element(By.XPATH,"//*[contains(@class,'submit-submission')]")
     btn2.click()
 
@@ -56,7 +58,4 @@ def test_login_link(browser,id):
     res = text_msg.text
 
     assert "Correct!" == res
-
-
-
 
